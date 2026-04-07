@@ -2,9 +2,9 @@
   "name": "angel-bot",
   "version": "1.0.0",
   "description": "Bot Discord",
-  "main": "index.js",
+  "main": "angel.js",
   "scripts": {
-    "start": "node index.js"
+    "start": "node angel.js"
   },
   "dependencies": {
     "discord.js": "^14.21.0",
