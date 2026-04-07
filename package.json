@@ -1,7 +1,6 @@
 {
   "name": "angel-bot",
   "version": "1.0.0",
-  "description": "Bot Discord",
   "main": "angel.js",
   "scripts": {
     "start": "node angel.js"
