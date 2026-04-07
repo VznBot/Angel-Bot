@@ -23,8 +23,8 @@ client.on(Events.MessageCreate, (message) => {
   if (message.author.bot) return;
 
   if (message.content === '!opa') {
-    message.channel.send('Pessoal, ajudem nosso servidor a crescer!
-Compartilhem com seus amigos e também nas suas redes sociais. Quanto mais gente chegar, mais divertida e ativa fica a nossa comunidade.');
+    message.channel.send(´Pessoal, ajudem nosso servidor a crescer!
+Compartilhem com seus amigos e também nas suas redes sociais. Quanto mais gente chegar, mais divertida e ativa fica a nossa comunidade.´);
   }
 });
 
