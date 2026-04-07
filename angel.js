@@ -1,10 +1,10 @@
 const { Client, GatewayIntentBits, Events } = require('discord.js');
 
 // Canal onde o bot avisa quem ENTROU no servidor
-const CANAL_ENTRADA_ID = 'COLOQUE_O_ID_DO_CANAL_DE_ENTRADA';
+const CANAL_ENTRADA_ID = '1491194967136276581';
 
 // Canal onde o bot avisa quem SAIU do servidor
-const CANAL_SAIDA_ID = 'COLOQUE_O_ID_DO_CANAL_DE_SAIDA';
+const CANAL_SAIDA_ID = '1491195017602269302';
 
 const client = new Client({
   intents: [
