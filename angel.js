@@ -33,7 +33,9 @@ client.on(Events.GuildMemberAdd, (member) => {
   const canalEntrada = member.guild.channels.cache.get(CANAL_ENTRADA_ID);
   if (!canalEntrada) return;
 
-  canalEntrada.send(`🎉 ${member} entrou no servidor. Seja bem-vindo(a)!`);
+  canalEntrada.send(`🎉 ${member} entrou no servidor. Seja bem-vindo(a)! Aqui você pode fazer novas amizades, conversar com a comunidade e também conhecer nossos serviços de seguidores, curtidas, comentários e visualizações.
+
+Esperamos que você tenha uma ótima experiência e aproveite tudo que o servidor oferece.`);
 });
 
 // Quando alguém sai do servidor
@@ -41,7 +43,9 @@ client.on(Events.GuildMemberRemove, (member) => {
   const canalSaida = member.guild.channels.cache.get(CANAL_SAIDA_ID);
   if (!canalSaida) return;
 
-  canalSaida.send(`😢 ${member.user.tag} saiu do servidor.`);
+  canalSaida.send(`😢 ${member.user.tag} saiu do servidor. Sua saída do servidor foi registrada.
+
+Agradecemos pelo tempo que passou aqui e desejamos tudo de bom para você. As portas estarão abertas caso queira voltar no futuro.`);
 });
 
 client.login(process.env.TOKEN);
