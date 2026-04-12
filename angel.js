@@ -19,11 +19,11 @@ client.once(Events.ClientReady, () => {
   console.log(`Bot online como ${client.user.tag}`);
 });
 
-client.on(Events.MessageCreate, (message) => {
+client.on(Events.MessageCreate, async (message) => {
   if (message.author.bot) return;
 
   if (message.content === '!opa') {
-    message.channel.send(`@everyone
+    const regrasParte1 = `@everyone
 
 ╭━━━〔 📜 Regras Oficiais do Servidor 〕━━━╮
 
@@ -42,19 +42,19 @@ Não envie mensagens repetidas, textos exagerados em sequência, marcações sem
 É proibido divulgar servidores, perfis, links, lojas, canais, grupos ou qualquer projeto próprio sem autorização da staff ou fora do canal correto.
 
 **5. Conteúdo impróprio não é permitido**
-Não envie conteúdo inadequado, chocante, ofensivo ou que desrespeite a comunidade. Mantenha o ambiente limpo e confortável para todos.
+Não envie conteúdo inadequado, ofensivo ou que desrespeite a comunidade. Mantenha o ambiente limpo e confortável para todos.
 
 **6. Use os canais corretamente**
-Cada canal tem sua função. Evite mandar assuntos fora do lugar para manter a organização do servidor.
+Cada canal tem sua função. Evite mandar assuntos fora do lugar para manter a organização do servidor.`;
 
-**7. Respeite a staff e as decisões**
+    const regrasParte2 = `**7. Respeite a staff e as decisões**
 A equipe está aqui para organizar e proteger o servidor. Desrespeito à staff, deboche em moderação ou tentativa de atrapalhar decisões poderá resultar em punição.
 
 **8. Proibido se passar por outras pessoas**
 Não finja ser membro, staff, parceiro, bot ou qualquer outra pessoa. Isso inclui nomes, perfis e atitudes que causem confusão.
 
 **9. Nada de perturbar chamadas**
-Em calls, evite gritos, sons estourados, barulhos irritantes, músicas sem permissão ou qualquer comportamento que atrapalhe os demais.
+Em calls, evite gritos, sons altos, barulhos irritantes, músicas sem permissão ou qualquer comportamento que atrapalhe os demais.
 
 **10. Compras e suporte com responsabilidade**
 Nos canais de compra e suporte, mantenha clareza, respeito e paciência. Tentativas de enganar, tumultuar ou atrapalhar atendimentos não serão aceitas.
@@ -76,29 +76,54 @@ O objetivo do servidor é manter uma comunidade ativa, divertida e organizada pa
 
 Atenciosamente,
 **Equipe da Staff**
-╰━━━━━━━━━━━━━━━━━━━━━━╯
-`)
+╰━━━━━━━━━━━━━━━━━━━━━━╯`;
+
+    try {
+      await message.channel.send({
+        content: regrasParte1,
+        allowedMentions: { parse: ['everyone'] }
+      });
+
+      await message.channel.send({
+        content: regrasParte2
+      });
+    } catch (error) {
+      console.error('Erro ao enviar regras:', error);
+      message.reply('Não consegui enviar as regras. Verifique as permissões do bot.');
+    }
   }
 });
 
 // Quando alguém entra no servidor
-client.on(Events.GuildMemberAdd, (member) => {
+client.on(Events.GuildMemberAdd, async (member) => {
   const canalEntrada = member.guild.channels.cache.get(CANAL_ENTRADA_ID);
   if (!canalEntrada) return;
 
-  canalEntrada.send(`🎉 ${member} entrou no servidor. Seja bem-vindo(a)! Aqui você pode fazer novas amizades, conversar com a comunidade e também conhecer nossos serviços de seguidores, curtidas, comentários e visualizações.
+  try {
+    await canalEntrada.send(
+      `🎉 ${member} entrou no servidor. Seja bem-vindo(a)! Aqui você pode fazer novas amizades, conversar com a comunidade e conhecer nossos serviços.
 
-Esperamos que você tenha uma ótima experiência e aproveite tudo que o servidor oferece.`);
+Esperamos que você tenha uma ótima experiência e aproveite tudo que o servidor oferece.`
+    );
+  } catch (error) {
+    console.error('Erro ao enviar mensagem de entrada:', error);
+  }
 });
 
 // Quando alguém sai do servidor
-client.on(Events.GuildMemberRemove, (member) => {
+client.on(Events.GuildMemberRemove, async (member) => {
   const canalSaida = member.guild.channels.cache.get(CANAL_SAIDA_ID);
   if (!canalSaida) return;
 
-  canalSaida.send(`😢 ${member.user.tag} saiu do servidor. Sua saída do servidor foi registrada.
+  try {
+    await canalSaida.send(
+      `😢 ${member.user.tag} saiu do servidor. Sua saída foi registrada.
 
-Agradecemos pelo tempo que passou aqui e desejamos tudo de bom para você. As portas estarão abertas caso queira voltar no futuro.`);
+Agradecemos pelo tempo que passou aqui e desejamos tudo de bom para você. As portas estarão abertas caso queira voltar no futuro.`
+    );
+  } catch (error) {
+    console.error('Erro ao enviar mensagem de saída:', error);
+  }
 });
 
 client.login(process.env.TOKEN);
